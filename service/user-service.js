@@ -15,7 +15,11 @@ class UserService {
 			password: hashPassword,
 		});
 
+		console.log(user);
+
 		const userDto = new UserDto(user);
+
+		console.log(userDto);
 		const tokens = tokenService.generateTokens({...userDto});
 
 		await tokenService.saveToken(userDto.id, tokens.refreshToken);
