@@ -1,8 +1,12 @@
 const Router = require('express').Router;
-const userController = require('../controllers/user-controller');
+
 const router = new Router();
 const {body} = require('express-validator');
 const authMiddleware = require('../middlewares/auth-middleware');
+const userController = require('../controllers/user-controller');
+const reviewController = require('../controllers/review-controller');
+const artPieceController = require('../controllers/artPiece-controller');
+const starsController = require('../controllers/stars-controller');
 
 router.post(
 	'/registration',
@@ -13,6 +17,16 @@ router.post(
 router.post('/login', userController.login);
 router.post('/logout', userController.logout);
 router.get('/refresh', userController.refresh);
-router.get('/users', authMiddleware, userController.getUsers);
+router.get('/users', userController.getUsers);
+
+router.post('/reviews', reviewController.create);
+// router.get('/reviews/:id', reviewController.getOne);
+router.get('/reviews', reviewController.getAll);
+// router.delete('/reviews', reviewController.delete);
+// router.patch('/reviews', reviewController.update);
+
+router.post('/art-pieces', artPieceController.create);
+
+router.post('/stars', starsController.create);
 
 module.exports = router;

@@ -10,6 +10,8 @@ class UserController {
 				return res.status(400).json({message: 'Registration error', errors});
 			}
 
+			console.log(req.body);
+
 			const {email, password} = req.body;
 			const userData = await userService.registration(email, password);
 
