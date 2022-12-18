@@ -25,7 +25,8 @@ router.get('/reviews', reviewController.getAll);
 // router.delete('/reviews', reviewController.delete);
 // router.patch('/reviews', reviewController.update);
 
-router.post('/art-pieces', artPieceController.create);
+router.post('/art-pieces/new', artPieceController.create);
+router.get('/art-pieces', artPieceController.getAll);
 
 router.post('/stars', starsController.create);
 

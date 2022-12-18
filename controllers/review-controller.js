@@ -3,9 +3,10 @@ const reviewService = require('../service/review-service');
 class ReviewController {
 	async create(req, res) {
 		try {
-			const {title, artPiece, group, tags, text, image, author, grade, likes} =
+			const {title, artPiece, group, tags, text, image, author, grade} =
 				req.body;
 
+			console.log(author);
 			const review = await reviewService.create(
 				title,
 				artPiece,
@@ -14,8 +15,7 @@ class ReviewController {
 				text,
 				image,
 				author,
-				grade,
-				likes
+				grade
 			);
 
 			return res.json(review);
