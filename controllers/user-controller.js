@@ -1,5 +1,6 @@
 const userService = require('../service/user-service');
 const {validationResult} = require('express-validator');
+const reviewService = require('../service/review-service');
 
 class UserController {
 	async registration(req, res, next) {
@@ -72,6 +73,17 @@ class UserController {
 		try {
 			const users = await userService.getAllUsers();
 			return res.json(users);
+		} catch (e) {
+			console.log(e);
+		}
+	}
+
+	async likeReview(req, res, next) {
+		const id = req.body._id;
+		const reviewId = req.params.reviewId;
+		try {
+			await reviewService.likeReview(id, reviewId);
+			res.status(200).json('The review has been liked');
 		} catch (e) {
 			console.log(e);
 		}
