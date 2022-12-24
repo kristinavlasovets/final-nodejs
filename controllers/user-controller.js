@@ -79,8 +79,9 @@ class UserController {
 	}
 
 	async likeReview(req, res, next) {
-		const id = req.body._id;
+		const id = req.body.userId;
 		const reviewId = req.params.reviewId;
+
 		try {
 			await reviewService.likeReview(id, reviewId);
 			res.status(200).json('The review has been liked');

@@ -9,7 +9,7 @@ const ReviewSchema = new Schema({
 	image: {type: String},
 	author: {type: Schema.Types.ObjectId, ref: 'User', required: true},
 	grade: {type: Number, default: 0},
-	likes: {type: [String], default: []},
+	likes: [String],
 });
 
 module.exports = model('Review', ReviewSchema);

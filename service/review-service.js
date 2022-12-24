@@ -1,4 +1,5 @@
 const ReviewModel = require('../models/review-model');
+const UserModel = require('../models/user-model');
 
 class ReviewService {
 	async create(
@@ -24,6 +25,11 @@ class ReviewService {
 			likes,
 		});
 
+		await UserModel.updateOne(
+			{_id: author},
+			{$push: {createdReviews: review._id}}
+		);
+
 		return review;
 	}
 
@@ -48,14 +54,28 @@ class ReviewService {
 	}
 
 	async likeReview(id, reviewId) {
-		const candidateLike = await ReviewModel.find({likes: {$in: id}});
+		const candidateLike = await ReviewModel.findOne({
+			_id: reviewId,
+			likes: {$in: id},
+		});
 
 		if (candidateLike) {
-			await ReviewModel.findByIdAndUpdate(reviewId, {
-				$pull: {likes: id},
-			});
-		} else
-			await ReviewModel.findByIdAndUpdate(reviewId, {$addToSet: {likes: id}});
+			const review = await ReviewModel.findOneAndUpdate(
+				{_id: reviewId},
+				{
+					$pull: {likes: id},
+				}
+			);
+
+			await UserModel.updateOne({_id: id}, {$pull: {likedReviews: reviewId}});
+		} else {
+			const review = await ReviewModel.findOneAndUpdate(
+				{_id: reviewId},
+				{$push: {likes: id}}
+			);
+
+			await UserModel.updateOne({_id: id}, {$push: {likedReviews: reviewId}});
+		}
 	}
 }
 

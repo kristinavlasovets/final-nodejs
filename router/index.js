@@ -19,7 +19,7 @@ router.post('/logout', userController.logout);
 router.get('/refresh', userController.refresh);
 router.get('/users', userController.getUsers);
 
-router.put('/users/likes/:reviewId', userController.likeReview);
+router.patch('/users/likes/:reviewId', userController.likeReview);
 
 router.post('/reviews', reviewController.create);
 router.get('/reviews/:id', reviewController.getOne);
