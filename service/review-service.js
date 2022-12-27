@@ -5,7 +5,7 @@ class ReviewService {
 	async create(
 		title,
 		artPiece,
-		group,
+		artGroup,
 		tags,
 		text,
 		image,
@@ -16,7 +16,7 @@ class ReviewService {
 		const review = await ReviewModel.create({
 			title,
 			artPiece,
-			group,
+			artGroup,
 			tags,
 			text,
 			image,

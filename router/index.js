@@ -32,6 +32,7 @@ router.get('/reviews/get-by-tag/tag', reviewController.getByTag);
 
 router.post('/art-pieces/new', artPieceController.create);
 router.get('/art-pieces', artPieceController.getAll);
+router.put('/art-pieces/rating', artPieceController.createRating);
 
 router.post('/stars', starsController.create);
 

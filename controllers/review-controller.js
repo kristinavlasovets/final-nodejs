@@ -4,14 +4,14 @@ const reviewService = require('../service/review-service');
 class ReviewController {
 	async create(req, res) {
 		try {
-			const {title, artPiece, group, tags, text, image, author, grade} =
+			const {title, artPiece, artGroup, tags, text, image, author, grade} =
 				req.body;
 
 			console.log(author);
 			const review = await reviewService.create(
 				title,
 				artPiece,
-				group,
+				artGroup,
 				tags,
 				text,
 				image,
