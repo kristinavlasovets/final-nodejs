@@ -41,6 +41,45 @@ class ReviewController {
 		}
 	}
 
+	async getMostRated(req, res) {
+		try {
+			const mostRatedReviews = await reviewService.getMostRated();
+
+			return res.json(mostRatedReviews);
+		} catch (e) {
+			console.log(e);
+			res.status(500).json({
+				message: 'Get the most rated reviews error',
+			});
+		}
+	}
+
+	async getMostRecent(req, res) {
+		try {
+			const mostRecentReviews = await reviewService.getMostRecent();
+
+			return res.json(mostRecentReviews);
+		} catch (e) {
+			console.log(e);
+			res.status(500).json({
+				message: 'Get the most recent reviews error',
+			});
+		}
+	}
+	async getReviewsbyTag(req, res) {
+		try {
+			const {tag} = req.params;
+			const byTagReviews = await reviewService.getReviewsByTag(tag);
+
+			return res.json(byTagReviews);
+		} catch (e) {
+			console.log(e);
+			res.status(500).json({
+				message: 'Get by tag reviews error',
+			});
+		}
+	}
+
 	async getOne(req, res) {
 		try {
 			const {id} = req.params;
@@ -55,16 +94,15 @@ class ReviewController {
 		}
 	}
 
-	async getByTag(req, res) {
-		const tag = req.query.tag;
-		console.log(tag);
+	async getAllTags(req, res) {
 		try {
-			const reviews = await reviewService.getByTag(tag);
-			return res.json(reviews);
+			const tags = await reviewService.getAllTags();
+
+			return res.json(tags);
 		} catch (e) {
 			console.log(e);
 			res.status(500).json({
-				message: 'Get reviews by tags error',
+				message: 'Get all the tags error',
 			});
 		}
 	}

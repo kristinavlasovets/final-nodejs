@@ -38,6 +38,30 @@ class ReviewService {
 
 		return reviews;
 	}
+	async getMostRated() {
+		const ratedReviews = await ReviewModel.find()
+			.populate(['author', 'artPiece'])
+			.sort({grade: -1})
+			.limit(10);
+
+		return ratedReviews;
+	}
+	async getMostRecent() {
+		const recentReviews = await ReviewModel.find()
+			.populate(['author', 'artPiece'])
+			.sort({createdAt: -1})
+			.limit(10);
+
+		return recentReviews;
+	}
+	async getReviewsByTag(tag) {
+		const byTagReviews = await ReviewModel.find({tags: {$in: tag}}).populate([
+			'author',
+			'artPiece',
+		]);
+
+		return byTagReviews;
+	}
 
 	async getOne(id) {
 		const review = await ReviewModel.findOne({_id: id}).populate([
@@ -47,10 +71,14 @@ class ReviewService {
 
 		return review;
 	}
-	async getByTag(tag) {
-		const reviews = await ReviewModel.find({tags: {$in: tag}}).limit(20);
 
-		return reviews;
+	async getAllTags(tag) {
+		const reviews = await ReviewModel.find().limit(20).exec();
+
+		const tags = reviews.map((obj) => obj.tags).flat();
+		const uniqueTags = tags.filter((item, pos) => tags.indexOf(item) == pos);
+
+		return uniqueTags;
 	}
 
 	async likeReview(id, reviewId) {
