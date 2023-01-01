@@ -7,6 +7,7 @@ const userController = require('../controllers/user-controller');
 const reviewController = require('../controllers/review-controller');
 const artPieceController = require('../controllers/artPiece-controller');
 const starsController = require('../controllers/stars-controller');
+const commentController = require('../controllers/comment-controller');
 
 router.post(
 	'/registration',
@@ -38,5 +39,8 @@ router.get('/art-pieces', artPieceController.getAll);
 router.put('/art-pieces/rating', artPieceController.createRating);
 
 router.post('/stars', starsController.create);
+
+router.post('/comments', commentController.create);
+router.get('/comments/:reviewId', commentController.getAll);
 
 module.exports = router;

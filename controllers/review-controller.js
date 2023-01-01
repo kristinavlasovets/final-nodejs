@@ -7,7 +7,6 @@ class ReviewController {
 			const {title, artPiece, artGroup, tags, text, image, author, grade} =
 				req.body;
 
-			console.log(author);
 			const review = await reviewService.create(
 				title,
 				artPiece,
