@@ -62,6 +62,13 @@ class ReviewService {
 
 		return byTagReviews;
 	}
+	async getReviewsByUser(userId) {
+		const byUserReviews = await ReviewModel.find({
+			author: {$in: userId},
+		}).populate(['author', 'artPiece']);
+
+		return byUserReviews;
+	}
 
 	async getOne(id) {
 		const review = await ReviewModel.findOne({_id: id}).populate([
@@ -70,6 +77,12 @@ class ReviewService {
 		]);
 
 		return review;
+	}
+	async deleteOne(id) {
+		const review = await ReviewModel.findOneAndDelete({_id: id}).populate([
+			'author',
+			'artPiece',
+		]);
 	}
 
 	async getAllTags(tag) {

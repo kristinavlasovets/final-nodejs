@@ -28,11 +28,11 @@ router.get('/reviews', reviewController.getAll);
 router.get('/most-rated-reviews', reviewController.getMostRated);
 router.get('/most-recent-reviews', reviewController.getMostRecent);
 router.get('/by-tag-reviews/:tag', reviewController.getReviewsbyTag);
+router.get('/by-user-reviews/:userId', reviewController.getReviewsbyUser);
 router.get('/tags', reviewController.getAllTags);
 // router.get('/reviews/search', reviewController.getBySearch);
-// router.delete('/reviews', reviewController.delete);
+router.delete('/reviews/:id', reviewController.deleteOne);
 // router.patch('/reviews', reviewController.update);
-// router.post('/review/like/:id', reviewController.likeReview);
 
 router.post('/art-pieces/new', artPieceController.create);
 router.get('/art-pieces', artPieceController.getAll);

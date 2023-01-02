@@ -78,6 +78,19 @@ class ReviewController {
 			});
 		}
 	}
+	async getReviewsbyUser(req, res) {
+		try {
+			const {userId} = req.params;
+			const byUserReviews = await reviewService.getReviewsByUser(userId);
+
+			return res.json(byUserReviews);
+		} catch (e) {
+			console.log(e);
+			res.status(500).json({
+				message: 'Get by user reviews error',
+			});
+		}
+	}
 
 	async getOne(req, res) {
 		try {
@@ -89,6 +102,19 @@ class ReviewController {
 			console.log(e);
 			res.status(500).json({
 				message: 'Get exact review error',
+			});
+		}
+	}
+	async deleteOne(req, res) {
+		try {
+			const {id} = req.params;
+			const review = await reviewService.deleteOne(id);
+
+			return res.json(review);
+		} catch (e) {
+			console.log(e);
+			res.status(500).json({
+				message: 'Delete exact review error',
 			});
 		}
 	}
