@@ -85,6 +85,39 @@ class ReviewService {
 		]);
 	}
 
+	async updateOne(
+		id,
+		title,
+		artPiece,
+		artGroup,
+		tags,
+		text,
+		image,
+		author,
+		grade
+	) {
+		const editedReview = await ReviewModel.updateOne(
+			{_id: id},
+			{
+				title,
+				artPiece,
+				artGroup,
+				tags,
+				text,
+				image,
+				author,
+				grade,
+			},
+			{
+				returnDocument: 'after',
+			}
+		);
+		if (!editedReview) {
+			throw ApiError.BadRequest('Edit review error');
+		}
+		return editedReview;
+	}
+
 	async getAllTags(tag) {
 		const reviews = await ReviewModel.find().limit(20).exec();
 

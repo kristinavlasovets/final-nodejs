@@ -32,7 +32,7 @@ router.get('/by-user-reviews/:userId', reviewController.getReviewsbyUser);
 router.get('/tags', reviewController.getAllTags);
 // router.get('/reviews/search', reviewController.getBySearch);
 router.delete('/reviews/:id', reviewController.deleteOne);
-// router.patch('/reviews', reviewController.update);
+router.patch('/reviews/:id', reviewController.updateOne);
 
 router.post('/art-pieces/new', artPieceController.create);
 router.get('/art-pieces', artPieceController.getAll);

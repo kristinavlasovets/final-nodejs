@@ -118,6 +118,31 @@ class ReviewController {
 			});
 		}
 	}
+	async updateOne(req, res) {
+		try {
+			const {id} = req.params;
+			const {title, artPiece, artGroup, tags, text, image, author, grade} =
+				req.body;
+			const editedReview = await reviewService.updateOne(
+				id,
+				title,
+				artPiece,
+				artGroup,
+				tags,
+				text,
+				image,
+				author,
+				grade
+			);
+
+			return res.json(editedReview);
+		} catch (e) {
+			console.log(e);
+			res.status(500).json({
+				message: 'Update exact review error',
+			});
+		}
+	}
 
 	async getAllTags(req, res) {
 		try {
