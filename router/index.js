@@ -16,6 +16,7 @@ router.post(
 	userController.registration
 );
 router.post('/login', userController.login);
+router.post('/login/google', userController.loginWithGoogle);
 router.post('/logout', userController.logout);
 router.get('/refresh', userController.refresh);
 router.get('/users', userController.getUsers);
