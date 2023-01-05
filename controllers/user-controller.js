@@ -44,30 +44,30 @@ class UserController {
 		}
 	}
 
-	async loginWithGoogle(req, res, next) {
-		try {
-			const user = userModel.findOne({email: req.body.email});
-			if (user) {
-				res.cookie('refreshToken', user.refreshToken, {
-					maxAge: 30 * 24 * 60 * 60 * 1000,
-					httpOnly: true,
-				});
+	// async loginWithGoogle(req, res, next) {
+	// 	try {
+	// 		const user = userModel.findOne({email: req.body.email});
+	// 		if (user) {
+	// 			res.cookie('refreshToken', user.refreshToken, {
+	// 				maxAge: 30 * 24 * 60 * 60 * 1000,
+	// 				httpOnly: true,
+	// 			});
 
-				return res.json(user);
-			} else {
-				const newUser = new userModel({...req.body, fromGoogle: true});
-				const savedUser = await newUser.save();
-				res.cookie('refreshToken', savedUser.refreshToken, {
-					maxAge: 30 * 24 * 60 * 60 * 1000,
-					httpOnly: true,
-				});
+	// 			return res.json(user);
+	// 		} else {
+	// 			const newUser = new userModel({...req.body, fromGoogle: true});
+	// 			const savedUser = await newUser.save();
+	// 			res.cookie('refreshToken', savedUser.refreshToken, {
+	// 				maxAge: 30 * 24 * 60 * 60 * 1000,
+	// 				httpOnly: true,
+	// 			});
 
-				return res.json(savedUser);
-			}
-		} catch (e) {
-			console.log(e);
-		}
-	}
+	// 			return res.json(savedUser);
+	// 		}
+	// 	} catch (e) {
+	// 		console.log(e);
+	// 	}
+	// }
 
 	async logout(req, res, next) {
 		try {
