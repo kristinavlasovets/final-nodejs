@@ -30,6 +30,10 @@ router.get('/most-rated-reviews', reviewController.getMostRated);
 router.get('/most-recent-reviews', reviewController.getMostRecent);
 router.get('/by-tag-reviews/:tag', reviewController.getReviewsbyTag);
 router.get('/by-user-reviews/:userId', reviewController.getReviewsbyUser);
+router.get(
+	'/by-artpiece-reviews/:artPieceId',
+	reviewController.getReviewsbyArtPiece
+);
 router.get('/tags', reviewController.getAllTags);
 // router.get('/reviews/search', reviewController.getBySearch);
 router.delete('/reviews/:id', reviewController.deleteOne);

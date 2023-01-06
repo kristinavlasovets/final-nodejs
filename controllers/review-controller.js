@@ -91,6 +91,21 @@ class ReviewController {
 			});
 		}
 	}
+	async getReviewsbyArtPiece(req, res) {
+		try {
+			const {artPieceId} = req.params;
+			const byArtPieceReviews = await reviewService.getReviewsbyArtPiece(
+				artPieceId
+			);
+
+			return res.json(byArtPieceReviews);
+		} catch (e) {
+			console.log(e);
+			res.status(500).json({
+				message: 'Get by art piece reviews error',
+			});
+		}
+	}
 
 	async getOne(req, res) {
 		try {

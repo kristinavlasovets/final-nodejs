@@ -69,6 +69,13 @@ class ReviewService {
 
 		return byUserReviews;
 	}
+	async getReviewsbyArtPiece(artPieceId) {
+		const byArtPieceReviews = await ReviewModel.find({
+			artPiece: {$in: artPieceId},
+		}).populate(['author', 'artPiece']);
+
+		return byArtPieceReviews;
+	}
 
 	async getOne(id) {
 		const review = await ReviewModel.findOne({_id: id}).populate([
