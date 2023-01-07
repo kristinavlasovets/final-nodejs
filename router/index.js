@@ -20,6 +20,11 @@ router.post('/login', userController.login);
 router.post('/logout', userController.logout);
 router.get('/refresh', userController.refresh);
 router.get('/users', userController.getUsers);
+router.delete('/users/:id', userController.deleteOne);
+router.patch('/users/block/:id', userController.blockOne);
+router.patch('/users/unblock/:id', userController.unblockOne);
+router.patch('/users/make-admin/:id', userController.makeAdminOne);
+router.patch('/users/make-user/:id', userController.makeUserOne);
 
 router.patch('/users/likes/:reviewId', userController.likeReview);
 

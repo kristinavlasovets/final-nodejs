@@ -105,6 +105,72 @@ class UserController {
 		}
 	}
 
+	async deleteOne(req, res) {
+		try {
+			const {id} = req.params;
+			const user = await userService.deleteOne(id);
+
+			return res.json(user);
+		} catch (e) {
+			console.log(e);
+			res.status(500).json({
+				message: 'Delete exact user error',
+			});
+		}
+	}
+	async blockOne(req, res) {
+		try {
+			const {id} = req.params;
+			const user = await userService.blockOne(id);
+
+			return res.json(user);
+		} catch (e) {
+			console.log(e);
+			res.status(500).json({
+				message: 'Block exact user error',
+			});
+		}
+	}
+	async unblockOne(req, res) {
+		try {
+			const {id} = req.params;
+			const user = await userService.unblockOne(id);
+
+			return res.json(user);
+		} catch (e) {
+			console.log(e);
+			res.status(500).json({
+				message: 'Unblock exact user error',
+			});
+		}
+	}
+	async makeAdminOne(req, res) {
+		try {
+			const {id} = req.params;
+			const user = await userService.makeAdminOne(id);
+
+			return res.json(user);
+		} catch (e) {
+			console.log(e);
+			res.status(500).json({
+				message: 'Make admin exact user error',
+			});
+		}
+	}
+	async makeUserOne(req, res) {
+		try {
+			const {id} = req.params;
+			const user = await userService.makeUserOne(id);
+
+			return res.json(user);
+		} catch (e) {
+			console.log(e);
+			res.status(500).json({
+				message: 'Make user exact admin error',
+			});
+		}
+	}
+
 	async likeReview(req, res, next) {
 		const id = req.body.userId;
 		const reviewId = req.params.reviewId;

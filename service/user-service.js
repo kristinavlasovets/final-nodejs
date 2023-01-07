@@ -75,6 +75,28 @@ class UserService {
 		const users = await UserModel.find();
 		return users;
 	}
+
+	async deleteOne(id) {
+		const user = await UserModel.findOneAndDelete({_id: id}).populate([
+			'createdReviews',
+		]);
+	}
+
+	async blockOne(id) {
+		const user = await UserModel.findByIdAndUpdate(id, {status: 'blocked'});
+	}
+
+	async unblockOne(id) {
+		const user = await UserModel.findByIdAndUpdate(id, {status: 'active'});
+	}
+
+	async makeAdminOne(id) {
+		const user = await UserModel.findByIdAndUpdate(id, {role: 'admin'});
+	}
+
+	async makeUserOne(id) {
+		const user = await UserModel.findByIdAndUpdate(id, {role: 'user'});
+	}
 }
 
 module.exports = new UserService();
