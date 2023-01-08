@@ -1,4 +1,5 @@
 const Router = require('express').Router;
+const passport = require('passport');
 
 const router = new Router();
 const {body} = require('express-validator');
@@ -15,8 +16,32 @@ router.post(
 	body('password').isLength({min: 3, max: 29}),
 	userController.registration
 );
+router.get(
+	'/auth/google',
+	passport.authenticate('google', {scope: ['profile', 'email']})
+);
+router.get(
+	'/auth/google/callback',
+	passport.authenticate('google', {failureRedirect: '/login'}),
+	function (req, res) {
+		res.redirect(process.env.CLIENT_URL);
+	}
+);
+
+router.get(
+	'/auth/github',
+	passport.authenticate('github', {scope: ['profile', 'email']})
+);
+
+router.get(
+	'/auth/github/callback',
+	passport.authenticate('github', {failureRedirect: '/login'}),
+	function (req, res) {
+		res.redirect(process.env.CLIENT_URL);
+	}
+);
+
 router.post('/login', userController.login);
-// router.post('/login/google', userController.loginWithGoogle);
 router.post('/logout', userController.logout);
 router.get('/refresh', userController.refresh);
 router.get('/users', userController.getUsers);
