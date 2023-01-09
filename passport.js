@@ -24,14 +24,13 @@ passport.use(
 				await tokenService.saveToken(userDto.id, tokens.refreshToken);
 
 				const userData = {...tokens, user: userDto};
-				console.log(userData);
 
 				return cb(null, userData);
 			}
 
 			const user = await UserModel.create({
 				googleId: profile.id,
-				username: profile.displayName,
+				username: profile.name,
 			});
 
 			const userDto = new UserDto(user);
@@ -41,7 +40,6 @@ passport.use(
 			await tokenService.saveToken(userDto.id, tokens.refreshToken);
 
 			const userData = {...tokens, user: userDto};
-			console.log(userData);
 
 			return cb(null, userData);
 		}
