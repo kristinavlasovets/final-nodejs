@@ -14,34 +14,36 @@ passport.use(
 			callbackURL: '/api/auth/google/callback',
 		},
 		async function (accessToken, refreshToken, profile, cb) {
-			await UserModel.findOne({googleId: profile.id}),
-				async (err, doc) => {
-					if (err) {
-						console.log('error');
-						return cb(err, null);
-					}
+			const candidate = await UserModel.findOne({googleId: profile.id});
 
-					const user = await UserModel.create({
-						googleId: profile.id,
-						username: profile.displayName,
-						email: _json.email,
-					});
+			if (candidate) {
+				const userDto = new UserDto(candidate);
 
-					const userDto = new UserDto(user);
+				const tokens = tokenService.generateTokens({...userDto});
 
-					const tokens = tokenService.generateTokens({...userDto});
+				await tokenService.saveToken(userDto.id, tokens.refreshToken);
 
-					await tokenService.saveToken(userDto.id, tokens.refreshToken);
+				const userData = {...tokens, user: userDto};
+				console.log(userData);
 
-					const userData = {...tokens, user: userDto};
+				return cb(null, userData);
+			}
 
-					return cb(null, userData);
-				};
+			const user = await UserModel.create({
+				googleId: profile.id,
+				username: profile.displayName,
+			});
 
-			console.log(profile.id);
-			console.log(profile.displayName);
-			console.log(profile._json.email);
-			cb(null, profile);
+			const userDto = new UserDto(user);
+
+			const tokens = tokenService.generateTokens({...userDto});
+
+			await tokenService.saveToken(userDto.id, tokens.refreshToken);
+
+			const userData = {...tokens, user: userDto};
+			console.log(userData);
+
+			return cb(null, userData);
 		}
 	)
 );
@@ -62,9 +64,8 @@ passport.use(
 					}
 
 					const user = await UserModel.create({
-						googleId: profile.id,
-						username: profile.displayName,
-						email: _json.email,
+						gitHubId: profile.id,
+						username: profile.username,
 					});
 
 					const userDto = new UserDto(user);

@@ -171,6 +171,21 @@ class ReviewController {
 			});
 		}
 	}
+
+	async getReviewsBySearch(req, res) {
+		try {
+			const query = req.query.query;
+
+			const reviews = await reviewService.getReviewsBySearch(query);
+
+			return res.json(reviews);
+		} catch (e) {
+			console.log(e);
+			res.status(500).json({
+				message: 'Get reviews by search error',
+			});
+		}
+	}
 }
 
 module.exports = new ReviewController();

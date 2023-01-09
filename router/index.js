@@ -16,6 +16,7 @@ router.post(
 	body('password').isLength({min: 3, max: 29}),
 	userController.registration
 );
+
 router.get(
 	'/auth/google',
 	passport.authenticate('google', {scope: ['profile', 'email']})
@@ -24,6 +25,11 @@ router.get(
 	'/auth/google/callback',
 	passport.authenticate('google', {failureRedirect: '/login'}),
 	function (req, res) {
+		const {user} = req;
+		res.cookie('refreshToken', user.refreshToken, {
+			maxAge: 30 * 24 * 60 * 60 * 1000,
+			httpOnly: true,
+		});
 		res.redirect(process.env.CLIENT_URL);
 	}
 );
@@ -37,6 +43,11 @@ router.get(
 	'/auth/github/callback',
 	passport.authenticate('github', {failureRedirect: '/login'}),
 	function (req, res) {
+		const {user} = req;
+		res.cookie('refreshToken', user.refreshToken, {
+			maxAge: 30 * 24 * 60 * 60 * 1000,
+			httpOnly: true,
+		});
 		res.redirect(process.env.CLIENT_URL);
 	}
 );
@@ -51,7 +62,11 @@ router.patch('/users/unblock/:id', userController.unblockOne);
 router.patch('/users/make-admin/:id', userController.makeAdminOne);
 router.patch('/users/make-user/:id', userController.makeUserOne);
 
-router.patch('/users/likes/:reviewId', userController.likeReview);
+router.patch(
+	'/users/likes/:reviewId',
+	authMiddleware,
+	userController.likeReview
+);
 
 router.post('/reviews', reviewController.create);
 router.get('/reviews/:id', reviewController.getOne);
@@ -65,7 +80,7 @@ router.get(
 	reviewController.getReviewsbyArtPiece
 );
 router.get('/tags', reviewController.getAllTags);
-// router.get('/reviews/search', reviewController.getBySearch);
+router.get('/by-search-reviews', reviewController.getReviewsBySearch);
 router.delete('/reviews/:id', reviewController.deleteOne);
 router.patch('/reviews/:id', reviewController.updateOne);
 

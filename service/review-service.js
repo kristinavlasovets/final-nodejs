@@ -77,6 +77,21 @@ class ReviewService {
 		return byArtPieceReviews;
 	}
 
+	async getReviewsBySearch(query) {
+		const reviews = await ReviewModel.aggregate([
+			{
+				$search: {
+					index: 'default',
+					text: {
+						query,
+						path: ['title', 'text'],
+					},
+				},
+			},
+		]);
+		return reviews;
+	}
+
 	async getOne(id) {
 		const review = await ReviewModel.findOne({_id: id}).populate([
 			'author',
