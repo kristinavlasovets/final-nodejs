@@ -92,6 +92,7 @@ class UserController {
 			});
 		}
 	}
+
 	async blockOne(req, res) {
 		try {
 			const {id} = req.params;
@@ -105,6 +106,7 @@ class UserController {
 			});
 		}
 	}
+
 	async unblockOne(req, res) {
 		try {
 			const {id} = req.params;
@@ -118,6 +120,7 @@ class UserController {
 			});
 		}
 	}
+
 	async makeAdminOne(req, res) {
 		try {
 			const {id} = req.params;
@@ -131,6 +134,7 @@ class UserController {
 			});
 		}
 	}
+
 	async makeUserOne(req, res) {
 		try {
 			const {id} = req.params;

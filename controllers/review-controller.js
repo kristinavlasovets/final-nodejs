@@ -65,6 +65,7 @@ class ReviewController {
 			});
 		}
 	}
+
 	async getReviewsbyTag(req, res) {
 		try {
 			const {tag} = req.params;
@@ -78,6 +79,7 @@ class ReviewController {
 			});
 		}
 	}
+
 	async getReviewsbyUser(req, res) {
 		try {
 			const {userId} = req.params;
@@ -91,6 +93,7 @@ class ReviewController {
 			});
 		}
 	}
+
 	async getReviewsbyArtPiece(req, res) {
 		try {
 			const {artPieceId} = req.params;
@@ -120,6 +123,7 @@ class ReviewController {
 			});
 		}
 	}
+
 	async deleteOne(req, res) {
 		try {
 			const {id} = req.params;
@@ -133,6 +137,7 @@ class ReviewController {
 			});
 		}
 	}
+
 	async updateOne(req, res) {
 		try {
 			const {id} = req.params;
