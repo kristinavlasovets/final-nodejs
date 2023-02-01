@@ -6,6 +6,7 @@ class CommentService {
 
 		return comment;
 	}
+
 	async getAll(reviewId) {
 		const comments = await CommentModel.find({reviewId});
 

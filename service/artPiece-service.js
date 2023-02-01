@@ -13,6 +13,7 @@ class ArtPieceService {
 
 		return artPiece;
 	}
+
 	async getAll() {
 		const artPieces = await ArtPieceModel.find();
 

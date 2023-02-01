@@ -38,6 +38,7 @@ class ReviewService {
 
 		return reviews;
 	}
+
 	async getMostRated() {
 		const ratedReviews = await ReviewModel.find()
 			.populate(['author', 'artPiece'])
@@ -46,6 +47,7 @@ class ReviewService {
 
 		return ratedReviews;
 	}
+
 	async getMostRecent() {
 		const recentReviews = await ReviewModel.find()
 			.populate(['author', 'artPiece'])
@@ -54,6 +56,7 @@ class ReviewService {
 
 		return recentReviews;
 	}
+
 	async getReviewsByTag(tag) {
 		const byTagReviews = await ReviewModel.find({tags: {$in: tag}}).populate([
 			'author',
@@ -69,6 +72,7 @@ class ReviewService {
 
 		return byUserReviews;
 	}
+
 	async getReviewsbyArtPiece(artPieceId) {
 		const byArtPieceReviews = await ReviewModel.find({
 			artPiece: {$in: artPieceId},
@@ -100,6 +104,7 @@ class ReviewService {
 
 		return review;
 	}
+
 	async deleteOne(id) {
 		const review = await ReviewModel.findOneAndDelete({_id: id}).populate([
 			'author',
